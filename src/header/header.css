@@ -1,0 +1,25 @@
+header {
+	margin: 60px auto 30px auto;
+	height: 100px;
+	text-align: center;
+}
+
+header img {
+	height: 100%;
+	margin: auto 10px auto 0;
+	float: left;
+	opacity: 0.3;
+}
+header img:before {
+	clear: both;
+}
+
+.logo_text {
+	color: rgb(150, 150, 150);
+	font-size: 50px;
+	padding: 25px;
+}
+.logo_text  span {
+	color: rgb(255, 50, 50);
+} 
+

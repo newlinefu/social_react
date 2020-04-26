@@ -1,0 +1,24 @@
+.info_block {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	margin-top: 30px;
+	justify-content: flex-start;
+}
+.info_block > img {
+	width: 20%;
+	margin-right: 40px;
+	border: 4px solid rgb(150, 150, 150);
+	border-radius: 6px;
+}
+
+.info {
+	font-size: 20px;
+	line-height: 25px;
+	background-color: rgb(200, 200, 200);
+	border-radius: 6px;
+	padding: 10px;
+	border: 4px solid rgb(150, 150, 150);
+}

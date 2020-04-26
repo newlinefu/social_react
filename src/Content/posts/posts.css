@@ -1,0 +1,32 @@
+.posts {
+	margin-top: 30px;
+	width: 100%;
+}
+
+#post_enter {
+	width: 100%;
+	resize: none;
+	background-color: rgb(230, 230, 230);
+	border-radius: 6px;
+	min-height: 150px;
+	padding: 10px;
+	font-size: 20px;
+	line-height: 23px;
+	overflow: hidden;
+	outline: none;
+}
+#post_enter:focus {
+	border: 3px solid rgb(150, 150, 150);
+}
+
+.post_item {
+	margin-top: 20px;
+	width: 70%;
+	padding: 10px;
+	border-radius: 6px;
+	background-color: rgb(255, 50, 50);
+	font-size: 20px;
+	line-height: 25px;
+	color: rgb(200, 200, 200);
+	border: 1px solid rgb(155, 0, 0);
+}
