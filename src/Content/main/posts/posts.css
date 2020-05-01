@@ -1,12 +1,12 @@
 .posts {
 	margin-top: 30px;
 	width: 100%;
-}
+} 
 
 #post_enter {
 	width: 100%;
 	resize: none;
-	background-color: rgb(230, 230, 230);
+	background-color: var(--light-grey);
 	border-radius: 6px;
 	min-height: 150px;
 	padding: 10px;
@@ -16,7 +16,7 @@
 	outline: none;
 }
 #post_enter:focus {
-	border: 3px solid rgb(150, 150, 150);
+	border: 3px solid var(--middle-grey);
 }
 
 .post_item {
@@ -24,9 +24,9 @@
 	width: 70%;
 	padding: 10px;
 	border-radius: 6px;
-	background-color: rgb(255, 50, 50);
+	background-color: var(--light-red);
 	font-size: 20px;
 	line-height: 25px;
-	color: rgb(200, 200, 200);
-	border: 1px solid rgb(155, 0, 0);
+	color: var(--middle-grey);
+	border: 1px solid var(--dark-grey);
 }

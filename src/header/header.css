@@ -15,11 +15,11 @@ header img:before {
 }
 
 .logo_text {
-	color: rgb(150, 150, 150);
+	color: var(--dark-grey);
 	font-size: 50px;
 	padding: 25px;
 }
 .logo_text  span {
-	color: rgb(255, 50, 50);
+	color: var(--light-red);
 } 
 

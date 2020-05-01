@@ -1,7 +1,12 @@
-* {
+*{
 	margin: 0;
 	padding: 0;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+	--middle-grey: rgb(200, 200, 200);
+	--dark-red: rgb(155, 0, 0);
+	--dark-grey: rgb(150, 150, 150);
+	--light-red: rgb(255, 50, 50);
+	--light-grey: rgb(230, 230, 230);
 }

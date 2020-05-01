@@ -1,11 +1,12 @@
 import React from 'react';
-import './asideNavig.css';
+import asideStyles from './asideNavig.module.css';
+import {NavLink} from 'react-router-dom';
 
 export default function AsideNavigation(props) {
 	return (
-		<nav className = 'navigation'>
+		<nav className = {asideStyles.navigation}>
 			{props.items.map(item => {
-				return <a href='' className = 'nav_item' key = {item}>{item}</a>
+				return <NavLink to = {item.link} className = {asideStyles.nav_item} key = {item.signature}>{item.signature}</NavLink>
 			})}
 		</nav>
 	);
