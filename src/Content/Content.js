@@ -4,11 +4,11 @@ import MainPage from './main/MainPage';
 import Dialogs from './dialogs/Dialogs';
 import {Route} from 'react-router-dom';
 
-export default function Content() {
+export default function Content(props) {
 	return (
 		<div className = {contentStyles.content}>
-			<Route path = '/main' component = {MainPage}></Route>
-			<Route path = '/messages' component = {Dialogs}></Route>
+			<Route path = '/main' render = {() => <MainPage state = {props.state} dispatch = {props.dispatch}></MainPage>}></Route>
+			<Route path = '/messages' render = {() => <Dialogs dialogs = {props.state.dialogs} dispatch = {props.dispatch}></Dialogs>}></Route>
 		</div>
 	);
 }

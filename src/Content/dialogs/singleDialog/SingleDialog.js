@@ -1,35 +1,53 @@
 import React from 'react';
 import singleDialogStyle from './singleDialog.module.css';
 import {Route} from 'react-router-dom';
+import CreateSingleDialog from './CreateSingleDialog';
+import {changeMessageAreaDelegate, addMessageDelegate} from '../../../redux/dialogsReducer';
 
+function SingleDialog(props) {
 
-function CreateSingleDialog(props) {
-	return(
-		<div>
-			{
-				props.person.map((value) => {
-					return (
-						<div className={singleDialogStyle.message + ' ' + (value.sender === 'am' ? singleDialogStyle.am : singleDialogStyle.locutor)} key={value.sender + value.message}>
-							{value.message}
-						</div>
-					)
-				})
-			}
-		</div>
-	);
-}
+	const textAreaLink = React.createRef();
 
-export default function SingleDialog(props) {
+	function addMessage(id) {
+		const valueOfElement = textAreaLink.current.value;
+		props.dispatch(addMessageDelegate(id, valueOfElement));
+	}
+
+	function changeMessageData(id) {
+		const valueOfElement = textAreaLink.current.value;
+		props.dispatch(changeMessageAreaDelegate(id, valueOfElement));
+	}
+
 	return(
 		<div className={singleDialogStyle.wrapper}>
 			{
-				props.locutorData.map( value => {
-					console.log(value);
-					const SingleComponent = () => <CreateSingleDialog person = {value.messages}></CreateSingleDialog>;
-					return <Route path = {value.link} component = {SingleComponent} key = {value.link}></Route>
+				props.dialogs.dialogsData.map( value => {
+					return <Route 
+							path = {value.link} 
+							render = { 
+								() => {
+									return (
+										<div>
+											<CreateSingleDialog person = {value.messages}></CreateSingleDialog>
+											<textarea 
+												className={singleDialogStyle.write_message} 
+												ref = {textAreaLink} 
+												value = {value.textAreaData}
+												onChange = {() => changeMessageData(value.id)}
+											></textarea>
+											<button 
+												className = 'post_but'
+												onClick = {() => addMessage(value.id)}
+											>Some text</button>
+										</div>
+									)}
+							} 
+							key = {value.link}
+							></Route>
 				})
 			}
-			<textarea id = "enter_message" className={singleDialogStyle.write_message} placeholder = 'Write message'></textarea>
 		</div>
 	);
 }
+
+export default SingleDialog;

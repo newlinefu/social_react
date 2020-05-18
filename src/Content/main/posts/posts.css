@@ -3,7 +3,7 @@
 	width: 100%;
 } 
 
-#post_enter {
+.post_enter {
 	width: 100%;
 	resize: none;
 	background-color: var(--light-grey);
@@ -15,18 +15,38 @@
 	overflow: hidden;
 	outline: none;
 }
-#post_enter:focus {
+.post_enter:focus {
 	border: 3px solid var(--middle-grey);
 }
-
 .post_item {
-	margin-top: 20px;
+	margin-top: 30px;
 	width: 70%;
 	padding: 10px;
 	border-radius: 6px;
 	background-color: var(--light-red);
-	font-size: 20px;
-	line-height: 25px;
+	font-size: 25px;
 	color: var(--middle-grey);
 	border: 1px solid var(--dark-grey);
+}
+
+.post_but {
+	outline:none;
+	padding: 10px;
+	font-size: 20px;
+	background-color: white;
+	color: var(--light-red);
+	border-radius: 6px;
+	border: 2px solid var(--light-red);
+	font-weight: 500;
+	margin-top: 15px;
+}
+
+.post_but:hover {
+	box-shadow: 0 0 3px 0 black;
+}
+
+.post_but:active {
+	box-shadow: 0 0 3px 0 black;
+	background-color: var(--light-red);
+	color: var(--light-grey);
 }
