@@ -7,8 +7,8 @@ import {Route} from 'react-router-dom';
 export default function Content(props) {
 	return (
 		<div className = {contentStyles.content}>
-			<Route path = '/main' render = {() => <MainPage state = {props.state} dispatch = {props.dispatch}></MainPage>}></Route>
-			<Route path = '/messages' render = {() => <Dialogs dialogs = {props.state.dialogs} dispatch = {props.dispatch}></Dialogs>}></Route>
+			<Route path = '/main' render = {() => <MainPage></MainPage>}></Route>
+			<Route path = '/messages' render = {() => <Dialogs></Dialogs>}></Route>
 		</div>
 	);
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import mainPageStyles from './mainPage.module.css';
 import Info from './info/Info';
-import Posts from './posts/Posts';
+import PostsContainer from './posts/PostsContainer';
 
 export default function Content(props) {
 	return (
@@ -10,10 +10,7 @@ export default function Content(props) {
 
 			<Info fields = { {Name: 'Sanya', Age: 20, Mail: 'newlinefu@gmail.com', avatarSrc: 'https://pm1.narvii.com/6889/74979d4d2744ec6e27995b6e866f091d04c0b40cr1-515-414v2_uhq.jpg'} }></Info>
 
-			<Posts 
-				posts = {props.state.posts} 
-				dispatch = {props.dispatch}>
-			</Posts>
+			<PostsContainer></PostsContainer>
 		</div>
 	);
 }

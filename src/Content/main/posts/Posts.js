@@ -1,20 +1,16 @@
 import React from 'react';
 import './posts.css';
 import PostsItems from './PostsItems';
-import {addPostDelegate, changeAreaDelegate} from '../../../redux/postsReducer';
 
 export default function Posts(props) {
 	const link = React.createRef();
 
 	function addPost() {
-		const area = link.current;
-		props.dispatch(addPostDelegate(area.value));
-		props.dispatch(changeAreaDelegate(''));
+		props.addPost(link.current.value);
 	}
 	
-	function changeArea() {
-		const area = link.current;
-		props.dispatch(changeAreaDelegate(area.value));
+	function changeArea(event) {
+		props.changeArea(event.target.value);
 	}
 
 	return (
@@ -25,11 +21,11 @@ export default function Posts(props) {
 					className = 'post_enter' 
 					ref = {link} 
 					onChange = {changeArea}
-					value = {props.posts.postAreaData}>
+					value = {props.postAreaData}>
 				</textarea>
 				<button onClick = {addPost} className = 'post_but'>Some button</button>
 			</div>
-			<PostsItems postsData = {props.posts.postsData}></PostsItems>
+			<PostsItems postsData = {props.postsData}></PostsItems>
 		</div>
 	);
 }

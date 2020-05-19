@@ -2,26 +2,24 @@ import React from 'react';
 import singleDialogStyle from './singleDialog.module.css';
 import {Route} from 'react-router-dom';
 import CreateSingleDialog from './CreateSingleDialog';
-import {changeMessageAreaDelegate, addMessageDelegate} from '../../../redux/dialogsReducer';
 
 function SingleDialog(props) {
-
 	const textAreaLink = React.createRef();
 
 	function addMessage(id) {
 		const valueOfElement = textAreaLink.current.value;
-		props.dispatch(addMessageDelegate(id, valueOfElement));
+		props.addMessage(id, valueOfElement);
 	}
 
 	function changeMessageData(id) {
 		const valueOfElement = textAreaLink.current.value;
-		props.dispatch(changeMessageAreaDelegate(id, valueOfElement));
+		props.changeMessageData(id, valueOfElement);
 	}
 
 	return(
 		<div className={singleDialogStyle.wrapper}>
 			{
-				props.dialogs.dialogsData.map( value => {
+				props.dialogsData.map((value, key) => {
 					return <Route 
 							path = {value.link} 
 							render = { 
@@ -42,7 +40,7 @@ function SingleDialog(props) {
 										</div>
 									)}
 							} 
-							key = {value.link}
+							key = {key}
 							></Route>
 				})
 			}
