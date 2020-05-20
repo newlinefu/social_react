@@ -6,21 +6,15 @@ import './index.css';
 import App from './App';
 import {Provider} from 'react-redux';
 
-function rerender(store) {
-	ReactDOM.render(
-	  <React.StrictMode>
-	    <Provider store = {store}>
-			<App/>	
-		</Provider>
-	  </React.StrictMode>,
-	  document.getElementById('root')
-	);	
-}
 
-rerender(store);
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store = {store}>
+		<App/>	
+	</Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-store.subscribe(() => {
-	rerender(store);
-});
 
 serviceWorker.unregister();

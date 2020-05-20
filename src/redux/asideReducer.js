@@ -7,5 +7,6 @@ const defaultState = {
 };
 
 export default function asideReducer(state = defaultState) {
-	return state;
+	const newState = {...state};
+	return newState;
 }

@@ -52,25 +52,31 @@ const defaultState = {
 
 
 export default function dialogsReducer(state = defaultState, action) {
+	let newState = {...state};
 	switch(action.type) {
-
-		case('CHANGE-MESSAGE-AREA'): 
+		case('CHANGE-MESSAGE-AREA'):
+			newState.dialogsData = [];
 			for(let dialog of state.dialogsData) {
-				if(action.id === dialog.id) {
-					dialog.textAreaData = action.newAreaData;
-				}
+				if(dialog.id === action.id)
+					newState.dialogsData.push({...dialog, textAreaData: action.newAreaData});
+				else
+					newState.dialogsData.push({...dialog});
 			}
-			return state;
+			return newState;
 		case('ADD-MESSAGE'):
+			newState.dialogsData = [];
 			for(let dialog of state.dialogsData) {
-				if(action.idOfDialog === dialog.id) {
-					dialog.messages.push( {sender: 'am', message: action.value} );
-					dialog.textAreaData = '';
+				if(dialog.id === action.idOfDialog){
+					const newDialog = {...dialog, textAreaData: '', messages: [...dialog.messages, {sender: 'am', message: action.value}]};
+					newState.dialogsData.push(newDialog);
 				}
+				else
+					newState.dialogsData.push({...dialog});
 			}
-			return state;
+			debugger;
+			return newState;
 		default:
-			return state;
+			return newState;
 	}
 }
 

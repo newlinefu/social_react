@@ -13,20 +13,21 @@ const defaultState = {
 
 
 export default function postsReducer(state = defaultState, action) {
-
+	const newState = {...state};
 	switch(action.type) {
-		case('ADD-POST'): 
-			state.postsData.push({
+		case('ADD-POST'):
+			newState.postsData = [...state.postsData];
+			newState.postsData.push({
 				id: 4,
 				content: action.contentOfPost,
 				likes: 0
 			});
-			return state;
+			return newState;
 		case('CHANGE-POST-AREA'):
-			state.postAreaData = action.newAreaText;
-			return state;
+			newState.postAreaData = action.newAreaText;
+			return newState;
 		default:
-			return state;
+			return newState;
 	}
 }
 

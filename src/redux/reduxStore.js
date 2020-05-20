@@ -5,8 +5,8 @@ import dialogsReducer from './dialogsReducer';
 
 let reducers = combineReducers({
 	aside: asideReducer,
-	posts: postsReducer,
-	dialogs: dialogsReducer
+	dialogs: dialogsReducer,
+	posts: postsReducer
 });
 
 let store = createStore(reducers);
