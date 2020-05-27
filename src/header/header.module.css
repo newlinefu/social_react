@@ -1,0 +1,56 @@
+.header {
+	margin: 60px auto 30px auto;
+	height: 100px;
+	text-align: center;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: space-between;
+}
+
+.logo_image {
+	height: 100%;
+	margin: auto 10px auto 0;
+	opacity: 0.3;
+}
+
+.logo_text {
+	color: var(--dark-grey);
+	font-size: 50px;
+	padding: 25px;
+}
+.logo_text  span {
+	color: var(--light-red);
+} 
+
+.authorized {
+	height: 100%;
+	text-align: center;
+	padding: 20px;
+}
+
+.nickname {
+	font-size: 25px;
+	padding-bottom: 15px;
+	color: var(--light-red);
+	font-weight: bold;
+}
+.id {
+	font-size: 20px;
+	color: var(--dark-red);
+	font-weight: bold;
+}
+
+.login {
+	font-size: 25px;
+	font-weight: bold;
+	padding: 37.5px;
+	color: var(--dark-grey);
+}
+
+.red {
+	color: var(--light-red);
+}
+

@@ -1,0 +1,40 @@
+.posts {
+	margin-top: 30px;
+	width: 100%;
+	text-align: left;
+} 
+
+.post_enter {
+	width: 100%;
+	resize: none;
+	background-color: var(--light-grey);
+	border-radius: 6px;
+	min-height: 150px;
+	padding: 10px;
+	font-size: 20px;
+	line-height: 23px;
+	overflow: hidden;
+	outline: none;
+}
+.post_enter:focus {
+	border: 3px solid var(--middle-grey);
+}
+.post_item {
+	margin-top: 30px;
+	width: 70%;
+	padding: 10px;
+	border-radius: 6px;
+	background-color: var(--light-red);
+	font-size: 25px;
+	color: var(--middle-grey);
+	border: 1px solid var(--dark-grey);
+	text-align: left;
+}
+
+.text_area_wrapper{
+
+}
+
+.block_posts {
+	
+}

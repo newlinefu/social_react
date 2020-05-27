@@ -1,0 +1,18 @@
+.wrapper {
+	width: 100%;
+	text-align: center;
+}
+
+.pages_wrapper {
+	margin-bottom: 30px;
+}
+
+.pages_wrapper > span {
+	margin: 5px;
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.active {
+	color: var(--light-red);
+}

@@ -1,0 +1,113 @@
+const FOLLOW = 'FOLLOW';
+const UNFOLLOW = 'UNFOLLOW';
+const SET_USERS = 'SET-USERS';
+const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
+const SET_ACTIVE_PAGE = 'SET-ACTIVE-PAGE';
+const TOGGLE_LOADING = 'TOGGLE-LOADING';
+
+
+let defaultState = {
+	listOfUsers: [],
+	totalCount: 0,
+	activePage: 1,
+	pageCount: 4,
+	isLoading: false
+}
+
+export default function usersReducer(state = defaultState, action) {
+	let newState;
+
+	switch(action.type) {
+		case('FOLLOW'):
+			newState = {...state, listOfUsers: []};
+			for(let user of state.listOfUsers) {
+				if(user.id === action.id)
+					newState.listOfUsers.push({...user, followed: true});
+				else 
+					newState.listOfUsers.push({...user})
+			}
+			return newState;
+		case('UNFOLLOW'):
+			newState = {...state, listOfUsers: []};
+			for(let user of state.listOfUsers) {
+				if(user.id === action.id)
+					newState.listOfUsers.push({...user, followed: false});
+				else 
+					newState.listOfUsers.push({...user})
+			}
+			return newState;
+		case('SET-USERS'):
+			return {
+				...state,
+				listOfUsers: [...action.users]
+			}
+		case('SET-TOTAL-COUNT'):
+			return {
+				...state,
+				totalCount: action.count
+			}
+		case('SET-ACTIVE-PAGE'):
+			return {
+				...state,
+				activePage: action.active
+			}
+		case('TOGGLE-LOADING'):
+			return {
+				...state,
+				isLoading: action.value
+			}
+		default:
+			return state;
+	}
+}
+
+function followDelegate(id) {
+	return {
+		type: FOLLOW,
+		id: id
+	}
+}
+
+function unfollowDelegate(id) {
+	return {
+		type: UNFOLLOW,
+		id: id
+	}
+}
+
+function setUsersDelegate(users) {
+	return {
+		type: SET_USERS,
+		users: users
+	}
+}
+
+function setTotalCountDelegate(count) {
+	return {
+		type: SET_TOTAL_COUNT,
+		count: count
+	}
+}
+
+function setActivePageDelegate(active) {
+	return {
+		type: SET_ACTIVE_PAGE,
+		active: active
+	}
+}
+
+function toggleLoadingDelegate(value) {
+	return {
+		type: TOGGLE_LOADING,
+		value: value
+	}
+}
+
+export {
+	followDelegate,
+	unfollowDelegate,
+	setUsersDelegate,
+	setActivePageDelegate,
+	setTotalCountDelegate,
+	toggleLoadingDelegate
+}

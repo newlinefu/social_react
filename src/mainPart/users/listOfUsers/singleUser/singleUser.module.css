@@ -1,0 +1,69 @@
+.wrapper {
+	border: 2px solid var(--dark-grey);
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	border-radius: 6px;
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 30px;
+	background-color: var(--light-red);
+}
+
+.follow_ava {
+	width: 30%;
+}
+
+.follow {
+	margin-top: 20px;
+	font-size: 25px;
+	border: 1px solid var(--middle-grey);
+	outline: none;
+	width: 80%;
+	padding: 5px;
+	text-align: center;
+	border-radius: 6px;
+	background-color: var(--light-grey);
+	color: var(--dark-red);
+	font-weight: bold;
+	cursor: pointer;
+}
+.follow:hover {
+	color: var(--light-red);
+}
+.follow:active{
+	color: var(--dark-red);
+	background-color: var(--middle-grey);
+}
+
+.avatar {
+	border-radius: 50%;
+	width: 100%;
+}
+
+.info {
+	width: 100%;
+	text-align: left;
+	margin-left: 20px;
+}
+
+.full_name {
+	font-size: 30px;
+	color: var(--light-grey);
+	margin-bottom: 10px;
+}
+.location {
+	margin-bottom: 5px;
+}
+
+.location, 
+.status {
+	font-size: 25px;
+	color: var(--middle-grey);
+}
+
+.location > p{
+	display: inline-block;
+}
