@@ -22,7 +22,9 @@ export default function Users(props){
 				follow = {props.follow} 
 				unfollow = {props.unfollow}
 				setUsers = {props.setUsers}
-				listOfUsers = {props.listOfUsers}>
+				listOfUsers = {props.listOfUsers}
+				isFollowing = {props.isFollowing}
+				toggleFollowing = {props.toggleFollowing}>
 			</ListOfUsers>
 		</div>);	
 }

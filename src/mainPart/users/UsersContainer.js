@@ -7,7 +7,8 @@ import {
 	setUsersDelegate, 
 	setTotalCountDelegate, 
 	setActivePageDelegate,
-	toggleLoadingDelegate} from '../../redux/reducers/usersReducer';
+	toggleLoadingDelegate,
+	toggleFollowingDelegate} from '../../redux/reducers/usersReducer';
 import {requests} from '../../API/api';
 
 
@@ -55,6 +56,8 @@ class UsersAPIComponent extends React.Component {
 			onActiveChanged = {this.onActiveChanged}
 			activePage = {this.props.activePage}
 			isLoading = {this.props.isLoading}
+			isFollowing = {this.props.isFollowing}
+			toggleFollowing = {this.props.toggleFollowing}
 		></Users>)
 	}
 }
@@ -66,21 +69,19 @@ function mapStateToProps(state) {
 		totalCount: state.users.totalCount,
 		activePage: state.users.activePage,
 		pageCount: state.users.pageCount,
-		isLoading: state.users.isLoading
+		isLoading: state.users.isLoading,
+		isFollowing: state.users.isFollowing
 	}
 }
 
-function mapDispatchToProps(dispatch) {
-	return {
-		follow: id => dispatch(followDelegate(id)),
-		unfollow: id => dispatch(unfollowDelegate(id)),
-		setUsers: users => dispatch(setUsersDelegate(users)),
-		setTotalCount: count => dispatch(setTotalCountDelegate(count)),
-		setActivePage: active => dispatch(setActivePageDelegate(active)),
-		toggleLoading: value => dispatch(toggleLoadingDelegate(value))
-	}
-}
-
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent);
+const UsersContainer = connect(mapStateToProps, {
+	follow: followDelegate,
+	unfollow: unfollowDelegate,
+	setUsers: setUsersDelegate,
+	setTotalCount: setTotalCountDelegate,
+	setActivePage: setActivePageDelegate,
+	toggleLoading: toggleLoadingDelegate,
+	toggleFollowing: toggleFollowingDelegate
+})(UsersAPIComponent);
 
 export default UsersContainer;

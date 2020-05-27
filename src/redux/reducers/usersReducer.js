@@ -4,6 +4,7 @@ const SET_USERS = 'SET-USERS';
 const SET_TOTAL_COUNT = 'SET-TOTAL-COUNT';
 const SET_ACTIVE_PAGE = 'SET-ACTIVE-PAGE';
 const TOGGLE_LOADING = 'TOGGLE-LOADING';
+const TOGGLE_FOLLOWING = 'TOGGLE-FOLLOWING';
 
 
 let defaultState = {
@@ -11,7 +12,8 @@ let defaultState = {
 	totalCount: 0,
 	activePage: 1,
 	pageCount: 4,
-	isLoading: false
+	isLoading: false,
+	isFollowing: []
 }
 
 export default function usersReducer(state = defaultState, action) {
@@ -55,6 +57,13 @@ export default function usersReducer(state = defaultState, action) {
 			return {
 				...state,
 				isLoading: action.value
+			}
+		case('TOGGLE-FOLLOWING'):
+			return{
+				...state,
+				isFollowing: action.isFollow
+				? [...state.isFollowing, action.id]
+				: state.isFollowing.filter(id => id !== action.id)
 			}
 		default:
 			return state;
@@ -103,11 +112,19 @@ function toggleLoadingDelegate(value) {
 	}
 }
 
+function toggleFollowingDelegate(isFollow, id) {
+	return {
+		type: TOGGLE_FOLLOWING,
+		id: id,
+		isFollow: isFollow
+	}
+}
 export {
 	followDelegate,
 	unfollowDelegate,
 	setUsersDelegate,
 	setActivePageDelegate,
 	setTotalCountDelegate,
-	toggleLoadingDelegate
+	toggleLoadingDelegate,
+	toggleFollowingDelegate
 }
