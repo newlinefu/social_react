@@ -1,18 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
-import * as axios from 'axios';
+import {requests} from '../API/api';
 import {setAuthDelegate, toggleLoadingDelegate, toggleAuthorizedDelegate} from '../redux/reducers/authReducer';
 
 class HeaderAPIContainer extends React.Component {
 	componentDidMount() {
 		this.props.toggleLoading(true);
-		axios
-			.get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-				withCredentials: true
-			})
+		requests
+			.getAuth()
 			.then(response => {
-				this.props.setAuth(response.data.data);
+				this.props.setAuth(response);
 				this.props.toggleLoading(false);
 				this.props.toggleAuthorized(true);
 			})

@@ -8,7 +8,7 @@ import {
 	setTotalCountDelegate, 
 	setActivePageDelegate,
 	toggleLoadingDelegate} from '../../redux/reducers/usersReducer';
-import * as axios from 'axios';
+import {requests} from '../../API/api';
 
 
 class UsersAPIComponent extends React.Component {
@@ -25,11 +25,10 @@ class UsersAPIComponent extends React.Component {
 	componentDidMount = () => {
 		this.props.toggleLoading(true);
 		this.props.setUsers([]);
-		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageCount}&page=${this.props.activePage}`)
+		requests.getUsers(this.props.pageCount, this.props.activePage)
 			.then(response => {
-				this.props.setTotalCount(response.data.totalCount);
-				this.props.setUsers(response.data.items);
+				this.props.setTotalCount(response.totalCount);
+				this.props.setUsers(response.items);
 				this.props.toggleLoading(false);
 			});
 	}
@@ -38,11 +37,10 @@ class UsersAPIComponent extends React.Component {
 		this.props.setActivePage(num);
 		this.props.toggleLoading(true);
 		this.props.setUsers([]);
-		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageCount}&page=${num}`)
+		requests.getUsers(this.props.pageCount, num)
 			.then(response => {
-				this.props.setTotalCount(response.data.totalCount);
-				this.props.setUsers(response.data.items);
+				this.props.setTotalCount(response.totalCount);
+				this.props.setUsers(response.items);
 				this.props.toggleLoading(false);
 			});
 	}

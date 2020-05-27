@@ -6,26 +6,32 @@ import {
 	changeAreaDelegate, 
 	addProfileInfoDelegate,
 	toggleLoadingDelegate} from '../../redux/reducers/profileReducer';
-import * as axios from 'axios';
+import {requests} from '../../API/api';
 import Preloader from '../preloader/Preloader';
 import {withRouter} from 'react-router-dom';
+import styles from './profile.module.css';
 
 class ProfileAPIContainer extends React.Component {
 
 	componentDidMount() {
 		let id = this.props.match.params.userId ? this.props.match.params.userId : this.props.defaultId;
-		this.props.toggleLoading(true);
-		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
-			.then(response => {
-				this.props.addProfileInfo(response.data);
-				this.props.toggleLoading(false);
-			});		
+		if(id !== this.props.defaultId || id !== null) {
+			this.props.toggleLoading(true);
+			requests
+				.getProfile(id)
+				.then(response => {
+					this.props.addProfileInfo(response);
+					this.props.toggleLoading(false);
+				});				
+		}
+	
 	}
 
 	render() {
 		if(!this.props.profileInfo) 
-			return <Preloader></Preloader>
+			return <div className = {styles.loader_wrapper}>
+			<Preloader></Preloader>
+			</div>
 		return (
 			<Profile
 				postAreaData = {this.props.postAreaData}
