@@ -2,18 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
 import {requests} from '../API/api';
-import {setAuthDelegate, toggleLoadingDelegate, toggleAuthorizedDelegate} from '../redux/reducers/authReducer';
+import {setAuth} from '../redux/reducers/authReducer';
 
 class HeaderAPIContainer extends React.Component {
 	componentDidMount() {
-		this.props.toggleLoading(true);
-		requests
-			.getAuth()
-			.then(response => {
-				this.props.setAuth(response);
-				this.props.toggleLoading(false);
-				this.props.toggleAuthorized(true);
-			})
+		this.props.setAuth();
 	}
 
 	render() {
@@ -41,12 +34,6 @@ function mapStateToProps(state) {
 	}
 }
 
-const HeaderContainer = connect(mapStateToProps, {
-
-	setAuth: setAuthDelegate,
-	toggleLoading: toggleLoadingDelegate,
-	toggleAuthorized: toggleAuthorizedDelegate
-
-})(HeaderAPIContainer);
+const HeaderContainer = connect(mapStateToProps, {setAuth: setAuth})(HeaderAPIContainer);
 
 export default HeaderContainer;

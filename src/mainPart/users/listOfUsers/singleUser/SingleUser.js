@@ -15,23 +15,8 @@ export default function SingleUser(props) {
 					disabled = {props.isFollowing.some(id => id === props.userData.id)}
 					className = {styles.follow} 
 					onClick = {!props.userData.followed 
-								? () => {
-									props.toggleFollowing(true, props.userData.id);
-									requests.getUserForFollow(props.userData.id).then(response => {
-										if(!response) {
-											props.follow();
-										}
-										props.toggleFollowing(false, props.userData.id);
-									})
-								}
-								: () => {
-									props.toggleFollowing(true, props.userData.id);
-									requests.getUserForUnfollow(props.userData.id).then(response => {
-										if(!response) 
-											props.unfollow();	
-										props.toggleFollowing(false, props.userData.id);	
-									})					
-								}}>
+								? () => props.follow(props.userData.id)
+								: () => props.unfollow(props.userData.id)}>
 					{props.userData.followed ? 'unfollow' : 'follow'}
 				</button>
 			</div>

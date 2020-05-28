@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 import {
 	addPostDelegate, 
 	changeAreaDelegate, 
-	addProfileInfoDelegate,
-	toggleLoadingDelegate} from '../../redux/reducers/profileReducer';
+	setProfile} from '../../redux/reducers/profileReducer';
 import {requests} from '../../API/api';
 import Preloader from '../preloader/Preloader';
 import {withRouter} from 'react-router-dom';
@@ -15,15 +14,8 @@ class ProfileAPIContainer extends React.Component {
 
 	componentDidMount() {
 		let id = this.props.match.params.userId ? this.props.match.params.userId : this.props.defaultId;
-		if(id !== this.props.defaultId || id !== null) {
-			this.props.toggleLoading(true);
-			requests
-				.getProfile(id)
-				.then(response => {
-					this.props.addProfileInfo(response);
-					this.props.toggleLoading(false);
-				});				
-		}
+		if(id !== this.props.defaultId || id !== null)
+			this.props.setProfile(id);
 	
 	}
 
@@ -60,8 +52,7 @@ const ControlURLComponent = withRouter(ProfileAPIContainer);
 const ProfileContainer = connect(mapStateToProps, {
 	addPost: addPostDelegate,
 	changeArea: changeAreaDelegate,
-	addProfileInfo: addProfileInfoDelegate,
-	toggleLoading: toggleLoadingDelegate
+	setProfile: setProfile
 })(ControlURLComponent);
 
 export default ProfileContainer;

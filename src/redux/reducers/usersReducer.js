@@ -1,3 +1,5 @@
+import {requests} from '../../API/api';
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
@@ -13,7 +15,7 @@ let defaultState = {
 	activePage: 1,
 	pageCount: 4,
 	isLoading: false,
-	isFollowing: []
+	isFollowing: [1,2]
 }
 
 export default function usersReducer(state = defaultState, action) {
@@ -119,12 +121,53 @@ function toggleFollowingDelegate(isFollow, id) {
 		isFollow: isFollow
 	}
 }
+
+function getAllUsers(pageCount, activePage) {
+
+	return (dispatch) => {
+		dispatch(setActivePageDelegate(activePage));
+		dispatch(toggleLoadingDelegate(true));
+		dispatch(setUsersDelegate([]));
+		requests
+			.getUsers(pageCount, activePage)
+			.then(response => {
+				dispatch(setTotalCountDelegate(response.totalCount));
+				dispatch(setUsersDelegate(response.items));
+				dispatch(toggleLoadingDelegate(false));
+			});
+	}
+}
+
+function followTo(id) {
+
+	return (dispatch) => {
+		dispatch(toggleFollowingDelegate(true, id));
+		requests
+			.getUserForFollow(id)
+			.then(response => {
+				if(!response) 
+					dispatch(followDelegate());
+				dispatch(toggleFollowingDelegate(false, id));
+			})
+	}
+}
+
+function unfollowTo(id) {
+
+	return (dispatch) => {
+		dispatch(toggleFollowingDelegate(true, id));
+		requests
+			.getUserForUnfollow(id)
+			.then(response => {
+				if(!response) 
+					dispatch(unfollowDelegate());
+				dispatch(toggleFollowingDelegate(false, id));
+			})
+	}
+}
+
 export {
-	followDelegate,
-	unfollowDelegate,
-	setUsersDelegate,
-	setActivePageDelegate,
-	setTotalCountDelegate,
-	toggleLoadingDelegate,
-	toggleFollowingDelegate
+	getAllUsers,
+	followTo,
+	unfollowTo
 }

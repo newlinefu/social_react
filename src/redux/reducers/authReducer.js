@@ -1,3 +1,5 @@
+import {requests} from '../../API/api';
+
 const SET_AUTH = 'SET-AUTH';
 const TOGGLE_LOADING = 'TOGGLE-LOADING';
 const TOGGLE_AUTHORIZED = 'TOGGLE-AUTHORIZED';
@@ -54,8 +56,18 @@ function toggleAuthorizedDelegate(value) {
 		value: value
 	}
 }
-export {
-	setAuthDelegate,
-	toggleLoadingDelegate,
-	toggleAuthorizedDelegate
+
+function setAuth() {
+	return (dispatch) => {
+		dispatch(toggleLoadingDelegate(true));
+		requests
+			.getAuth()
+			.then(response => {
+				dispatch(setAuthDelegate(response));
+				dispatch(toggleLoadingDelegate(false));
+				dispatch(toggleAuthorizedDelegate(true));
+			})
+	}
 }
+
+export {setAuth}

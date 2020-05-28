@@ -2,13 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Users from './Users';
 import {
-	followDelegate, 
-	unfollowDelegate, 
-	setUsersDelegate, 
-	setTotalCountDelegate, 
-	setActivePageDelegate,
-	toggleLoadingDelegate,
-	toggleFollowingDelegate} from '../../redux/reducers/usersReducer';
+	getAllUsers,
+	followTo,
+	unfollowTo} from '../../redux/reducers/usersReducer';
 import {requests} from '../../API/api';
 
 
@@ -24,40 +20,23 @@ class UsersAPIComponent extends React.Component {
 	}
 
 	componentDidMount = () => {
-		this.props.toggleLoading(true);
-		this.props.setUsers([]);
-		requests.getUsers(this.props.pageCount, this.props.activePage)
-			.then(response => {
-				this.props.setTotalCount(response.totalCount);
-				this.props.setUsers(response.items);
-				this.props.toggleLoading(false);
-			});
+		this.props.getAllUsers(this.props.pageCount, this.props.activePage);
 	}
 
 	onActiveChanged = (num) => {
-		this.props.setActivePage(num);
-		this.props.toggleLoading(true);
-		this.props.setUsers([]);
-		requests.getUsers(this.props.pageCount, num)
-			.then(response => {
-				this.props.setTotalCount(response.totalCount);
-				this.props.setUsers(response.items);
-				this.props.toggleLoading(false);
-			});
+		this.props.getAllUsers(this.props.pageCount, num);
 	}
 
 	render() {
 		return (<Users
-			follow = {this.props.follow}
-			unfollow = {this.props.unfollow}
-			setUsers = {this.props.setUsers}
+			follow = {this.props.followTo}
+			unfollow = {this.props.unfollowTo}
 			listOfUsers = {this.props.listOfUsers}
 			pages = {this.insertPagesLinks()}
 			onActiveChanged = {this.onActiveChanged}
 			activePage = {this.props.activePage}
 			isLoading = {this.props.isLoading}
 			isFollowing = {this.props.isFollowing}
-			toggleFollowing = {this.props.toggleFollowing}
 		></Users>)
 	}
 }
@@ -75,13 +54,9 @@ function mapStateToProps(state) {
 }
 
 const UsersContainer = connect(mapStateToProps, {
-	follow: followDelegate,
-	unfollow: unfollowDelegate,
-	setUsers: setUsersDelegate,
-	setTotalCount: setTotalCountDelegate,
-	setActivePage: setActivePageDelegate,
-	toggleLoading: toggleLoadingDelegate,
-	toggleFollowing: toggleFollowingDelegate
+	getAllUsers: getAllUsers,
+	followTo: followTo,
+	unfollowTo: unfollowTo
 })(UsersAPIComponent);
 
 export default UsersContainer;

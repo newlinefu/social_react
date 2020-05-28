@@ -14,8 +14,7 @@ export default class ListOfUsers extends React.Component {
 							follow = {() => this.props.follow(user.id)}
 							unfollow = {() => this.props.unfollow(user.id)}
 							key = {user.id}
-							isFollowing = {this.props.isFollowing}
-							toggleFollowing = {this.props.toggleFollowing}>
+							isFollowing = {this.props.isFollowing}>
 						</SingleUser>)
 					)
 				}

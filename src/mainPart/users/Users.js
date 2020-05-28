@@ -21,7 +21,6 @@ export default function Users(props){
 			<ListOfUsers 
 				follow = {props.follow} 
 				unfollow = {props.unfollow}
-				setUsers = {props.setUsers}
 				listOfUsers = {props.listOfUsers}
 				isFollowing = {props.isFollowing}
 				toggleFollowing = {props.toggleFollowing}>

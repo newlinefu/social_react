@@ -29,6 +29,7 @@
 	color: var(--dark-red);
 	font-weight: bold;
 	cursor: pointer;
+	transition: 0.2s;
 }
 .follow:hover {
 	color: var(--light-red);
@@ -36,6 +37,9 @@
 .follow:active{
 	color: var(--dark-red);
 	background-color: var(--middle-grey);
+}
+.follow[disabled] {
+	opacity: 0;
 }
 
 .avatar {

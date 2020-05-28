@@ -1,3 +1,5 @@
+import {requests} from '../../API/api';
+
 const ADD_POST = 'ADD-POST';
 const CHANGE_POST_AREA = 'CHANGE-POST-AREA';
 const ADD_PROFILE_INFO = 'ADD-PROFILE-INFO';
@@ -76,9 +78,20 @@ function toggleLoadingDelegate(value) {
 	}
 }
 
+function setProfile(id) {
+	return (dispatch) => {
+		dispatch(toggleLoadingDelegate(true));
+		requests
+			.getProfile(id)
+			.then(response => {
+				dispatch(addProfileInfoDelegate(response));
+				dispatch(toggleLoadingDelegate(false));
+			});	
+	}
+}
+
 export {
 	addPostDelegate, 
 	changeAreaDelegate,
-	addProfileInfoDelegate,
-	toggleLoadingDelegate
+	setProfile
 };
