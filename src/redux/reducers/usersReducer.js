@@ -15,7 +15,7 @@ let defaultState = {
 	activePage: 1,
 	pageCount: 4,
 	isLoading: false,
-	isFollowing: [1,2]
+	isFollowing: []
 }
 
 export default function usersReducer(state = defaultState, action) {
@@ -146,7 +146,7 @@ function followTo(id) {
 			.getUserForFollow(id)
 			.then(response => {
 				if(!response) 
-					dispatch(followDelegate());
+					dispatch(followDelegate(id));
 				dispatch(toggleFollowingDelegate(false, id));
 			})
 	}
@@ -160,7 +160,7 @@ function unfollowTo(id) {
 			.getUserForUnfollow(id)
 			.then(response => {
 				if(!response) 
-					dispatch(unfollowDelegate());
+					dispatch(unfollowDelegate(id));
 				dispatch(toggleFollowingDelegate(false, id));
 			})
 	}

@@ -6,6 +6,8 @@ import {
 	followTo,
 	unfollowTo} from '../../redux/reducers/usersReducer';
 import {requests} from '../../API/api';
+import withRouter from '../../hocs/withAuthComponent';
+import {compose} from 'redux';
 
 
 class UsersAPIComponent extends React.Component {
@@ -29,8 +31,8 @@ class UsersAPIComponent extends React.Component {
 
 	render() {
 		return (<Users
-			follow = {this.props.followTo}
-			unfollow = {this.props.unfollowTo}
+			follow = {this.props.follow}
+			unfollow = {this.props.unfollow}
 			listOfUsers = {this.props.listOfUsers}
 			pages = {this.insertPagesLinks()}
 			onActiveChanged = {this.onActiveChanged}
@@ -53,10 +55,8 @@ function mapStateToProps(state) {
 	}
 }
 
-const UsersContainer = connect(mapStateToProps, {
-	getAllUsers: getAllUsers,
-	followTo: followTo,
-	unfollowTo: unfollowTo
-})(UsersAPIComponent);
 
-export default UsersContainer;
+export default compose(
+	withRouter,
+	connect(mapStateToProps, {getAllUsers: getAllUsers, follow: followTo, unfollow: unfollowTo})
+)(UsersAPIComponent);

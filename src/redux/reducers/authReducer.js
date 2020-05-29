@@ -63,10 +63,11 @@ function setAuth() {
 		requests
 			.getAuth()
 			.then(response => {
-				dispatch(setAuthDelegate(response));
+				dispatch(setAuthDelegate(response.data));
 				dispatch(toggleLoadingDelegate(false));
-				dispatch(toggleAuthorizedDelegate(true));
-			})
+				if(!response.resultCode)
+					dispatch(toggleAuthorizedDelegate(true));
+			});
 	}
 }
 

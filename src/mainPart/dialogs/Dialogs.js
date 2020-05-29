@@ -3,8 +3,9 @@ import dialogsStyles from './dialogs.module.css';
 import ListOfDialogsPartContainer from './listOfDialogsPart/ListOfDialogsPartContainer';
 import SingleDialogsPartContainer from './singleDialogsPart/SingleDialogsPartContainer';
 import {BrowserRouter} from 'react-router-dom';
+import withAuthComponent from '../../hocs/withAuthComponent';
 
-export default function Dialogs(props) {
+function Dialogs(props) {
 
 	return (
 		<div className={dialogsStyles.wrapper}>
@@ -13,3 +14,6 @@ export default function Dialogs(props) {
 		</div>
 	);
 }
+
+export default withAuthComponent(Dialogs);
+

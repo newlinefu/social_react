@@ -15,7 +15,7 @@ export const requests = {
 		return template.delete(`follow/${id}`).then(response => response.resultCode);	
 	},
 	getAuth: function() {
-		return template.get('auth/me').then(response => response.data.data);
+		return template.get('auth/me').then(response => response.data);
 	},
 	getUsers: function(pageCount, pageNum) {
 		return template

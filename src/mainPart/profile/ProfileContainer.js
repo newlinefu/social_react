@@ -9,6 +9,8 @@ import {requests} from '../../API/api';
 import Preloader from '../preloader/Preloader';
 import {withRouter} from 'react-router-dom';
 import styles from './profile.module.css';
+import withAuthComponent from '../../hocs/withAuthComponent';
+import {compose} from 'redux';
 
 class ProfileAPIContainer extends React.Component {
 
@@ -48,11 +50,8 @@ function mapStateToProps(state) {
 	}
 }
 
-const ControlURLComponent = withRouter(ProfileAPIContainer);
-const ProfileContainer = connect(mapStateToProps, {
-	addPost: addPostDelegate,
-	changeArea: changeAreaDelegate,
-	setProfile: setProfile
-})(ControlURLComponent);
-
-export default ProfileContainer;
+export default compose(
+	withRouter,
+	withAuthComponent,
+	connect(mapStateToProps, {addPost: addPostDelegate, changeArea: changeAreaDelegate, setProfile: setProfile})
+)(ProfileAPIContainer);
