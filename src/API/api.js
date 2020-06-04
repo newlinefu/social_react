@@ -36,5 +36,17 @@ export const requests = {
 			.put('profile/status', {
 				status: status
 			})
+	},
+	login: function(email, password, rememberMe = false) {
+		return template
+			.post('auth/login', {
+				email: email,
+				password: password,
+				rememberMe: rememberMe
+			})
+	},
+	logout: function() {
+		return template
+			.delete('auth/login')
 	}
 }

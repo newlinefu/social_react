@@ -44,4 +44,14 @@
 	border: 3px solid var(--dark-red);
 }
 
+.common_error {
+	background-color: var(--dark-red);
+	color: var(--light-grey);
+	width: 100%;
+	padding: 10px;
+	text-align: center;
+	font-size: 25px;
+	border-radius: 6px;
+}
+
 

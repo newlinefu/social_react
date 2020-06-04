@@ -1,0 +1,11 @@
+.login {
+	font-size: 25px;
+	font-weight: bold;
+	padding: 37.5px;
+	color: var(--dark-grey);
+	cursor: pointer;
+}
+
+.red {
+	color: var(--light-red);
+}

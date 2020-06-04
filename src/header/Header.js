@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './header.module.css';
 import SmallPreloader from './smallPreloader/SmallPreloader';
+import LogInOut from './logInOut/LogInOut';
 
 export default function Header(props) {
 	return (
@@ -10,14 +11,7 @@ export default function Header(props) {
 			{
 				props.isLoading 
 				? <SmallPreloader></SmallPreloader> 
-				: props.isAuthorized 
-					?   (
-						<div className = {styles.authorized}>
-							<p className = {styles.nickname}>{props.login}</p>
-							<p className = {styles.id}>{props.id}</p>
-						</div>
-					)
-					: <p className = {styles.login}><span className = {styles.red}>LOG</span>IN</p>
+				: <LogInOut isAuthorized = {props.isAuthorized} logout = {props.logout}></LogInOut>
 			}
 		</header>
 	);

@@ -4,7 +4,7 @@ import styles from './login.module.css';
 import ValidatedInput from '../../validatedComponents/ValidatedInput';
 import {validators} from '../../validators/validators';
 
-const maxSymbolsLenght10 = validators.maxSymbolsLenght(10);
+const maxSymbolsLenght40 = validators.maxSymbolsLenght(40);
 
 function LoginForm(props) {
 	return (
@@ -15,7 +15,7 @@ function LoginForm(props) {
 					name = 'login' 
 					className = {styles.login_input} 
 					placeholder = 'Enter login'
-					validate = {maxSymbolsLenght10}></Field>
+					validate = {maxSymbolsLenght40}></Field>
 			</div>
 			<div>
 				<Field 
@@ -23,12 +23,13 @@ function LoginForm(props) {
 					name = 'password' 
 					className = {styles.pass_input} 
 					placeholder = 'Enter password'
-					validate = {maxSymbolsLenght10}></Field>
+					validate = {maxSymbolsLenght40}></Field>
 			</div>
 			<div className = {styles.checkbox_wrapper}>
 				<Field component = 'input' name = 'rememberMe' type = 'checkbox' className = {styles.remember_me}></Field>
 				<p>Remember me</p>
 			</div>
+			{props.error ? <div className = {styles.common_error}>{props.error}</div> : undefined}
 			<button type = 'submit' className = 'standart_btn'>LOGIN</button>
 		</form>
 	)

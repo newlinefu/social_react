@@ -9,13 +9,13 @@ import {BrowserRouter} from 'react-router-dom';
 function App() {
     return (
         <div className={appStyles.container}>
+        <BrowserRouter>
             <HeaderContainer></HeaderContainer>
             <div className={appStyles.wrapper}>
-                <BrowserRouter>
                     <AsideNavigationContainer></AsideNavigationContainer>
                     <MainPart></MainPart>
-                </BrowserRouter>
             </div>
+         </BrowserRouter>
         </div>
     );
 }

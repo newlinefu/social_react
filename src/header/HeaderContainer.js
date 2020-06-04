@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
 import {requests} from '../API/api';
-import {setAuth} from '../redux/reducers/authReducer';
+import {setAuth, logout} from '../redux/reducers/authReducer';
 
 class HeaderAPIContainer extends React.Component {
 	componentDidMount() {
@@ -17,7 +17,8 @@ class HeaderAPIContainer extends React.Component {
 				login = {this.props.login}
 				id = {this.props.id}
 				isLoading = {this.props.isLoading}
-				isAuthorized = {this.props.isAuthorized}>
+				isAuthorized = {this.props.isAuthorized}
+				logout = {this.props.logout}>
 			</Header>
 		)
 	}
@@ -34,6 +35,6 @@ function mapStateToProps(state) {
 	}
 }
 
-const HeaderContainer = connect(mapStateToProps, {setAuth: setAuth})(HeaderAPIContainer);
+const HeaderContainer = connect(mapStateToProps, {setAuth: setAuth, logout: logout})(HeaderAPIContainer);
 
 export default HeaderContainer;
