@@ -4,6 +4,8 @@ const ADD_POST = 'ADD-POST';
 const CHANGE_POST_AREA = 'CHANGE-POST-AREA';
 const ADD_PROFILE_INFO = 'ADD-PROFILE-INFO';
 const TOGGLE_LOADING = 'TOGGLE-LOADING';
+const SET_STATUS = 'SET-STATUS';
+//const UPDATE_STATUS = 'UPDATE-STATUS';
 
 const defaultState = {
 	profileInfo: null,
@@ -14,7 +16,8 @@ const defaultState = {
 	],
 	
 	postAreaData: '',
-	isLoading: false
+	isLoading: false,
+	status: ''
 };
 
 
@@ -27,8 +30,7 @@ export default function profileReducer(state = defaultState, action) {
 					id: 4,
 					content: action.contentOfPost,
 					likes: 0
-				}],
-				postAreaData: ''
+				}]
 			}
 		case('CHANGE-POST-AREA'):
 			return {
@@ -44,6 +46,11 @@ export default function profileReducer(state = defaultState, action) {
 			return {
 				...state,
 				isLoading: action.value
+			}
+		case('SET-STATUS'):
+			return {
+				...state,
+				status: action.status
 			}
 		default:
 			return state;
@@ -78,20 +85,47 @@ function toggleLoadingDelegate(value) {
 	}
 }
 
+function setStatusDelegate(status) {
+	return {
+		type: SET_STATUS,
+		status: status
+	}
+}
+
 function setProfile(id) {
 	return (dispatch) => {
 		dispatch(toggleLoadingDelegate(true));
 		requests
 			.getProfile(id)
-			.then(response => {
+			.then( response => {
 				dispatch(addProfileInfoDelegate(response));
 				dispatch(toggleLoadingDelegate(false));
 			});	
 	}
 }
 
+function updateStatus(status) {
+	return (dispatch) => {
+		requests
+			.updateStatus(status)
+			.then(response => !response.resultCode ? dispatch(setStatusDelegate(status)) : null)
+	}
+}
+
+function getStatus(id) {
+	return (dispatch) => {
+		requests
+			.getStatus(id)
+			.then( response => 	{
+				dispatch(setStatusDelegate(response.data)) 
+			})
+	}
+}
+
 export {
 	addPostDelegate, 
 	changeAreaDelegate,
-	setProfile
+	setProfile,
+	getStatus,
+	updateStatus
 };

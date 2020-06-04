@@ -1,0 +1,47 @@
+.main_wrapper{
+	width: 40%;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.login_head_text {
+	color: var(--light-red);
+	font-size: 40px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
+
+.login_input,
+.pass_input {
+	font-size: 25px;
+	padding: 8px;
+	outline: none;
+	border: 1px solid var(--dark-grey);
+	border-radius: 6px;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.checkbox_wrapper {
+	text-align: left;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+.checkbox_wrapper > p {
+	font-size: 25px;
+	padding: 5px;
+	margin-left: 10px;
+}
+
+.remember_me {
+	width: 30px;
+	height: 30px;
+	background-color: var(--light-red);
+	border: 3px solid var(--dark-red);
+}
+
+

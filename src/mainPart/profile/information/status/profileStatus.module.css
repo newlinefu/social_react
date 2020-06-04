@@ -1,0 +1,11 @@
+.non_change,
+.change {
+	font-size: 25px;
+	margin-top: 5px;
+	padding: 10px
+}
+
+.change {
+	border: none;
+	width: 80%;
+}

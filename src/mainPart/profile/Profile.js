@@ -14,7 +14,9 @@ export default function Profile(props) {
 					<img src={props.wallpaper} alt="" className={styles.wallpaper}/>
 					<Info 
 						avatar = {props.profileInfo.photos.small}
-						fullName = {props.profileInfo.fullName}>
+						fullName = {props.profileInfo.fullName}
+						updateStatus = {props.updateStatus}
+						status = {props.status}>
 					</Info>
 
 					<PostsContainer 

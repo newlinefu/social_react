@@ -26,5 +26,15 @@ export const requests = {
 		return template
 			.get(`profile/${id}`)
 			.then(response => response.data)
+	},
+	getStatus: function(id) {
+		return template
+			.get(`profile/status/${id}`)
+	},
+	updateStatus: function(status) {
+		return template
+			.put('profile/status', {
+				status: status
+			})
 	}
 }

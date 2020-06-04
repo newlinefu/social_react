@@ -4,7 +4,9 @@ import {connect} from 'react-redux';
 import {
 	addPostDelegate, 
 	changeAreaDelegate, 
-	setProfile} from '../../redux/reducers/profileReducer';
+	setProfile,
+	getStatus,
+	updateStatus} from '../../redux/reducers/profileReducer';
 import {requests} from '../../API/api';
 import Preloader from '../preloader/Preloader';
 import {withRouter} from 'react-router-dom';
@@ -18,6 +20,8 @@ class ProfileAPIContainer extends React.Component {
 		let id = this.props.match.params.userId ? this.props.match.params.userId : this.props.defaultId;
 		if(id !== this.props.defaultId || id !== null)
 			this.props.setProfile(id);
+
+		this.props.getStatus(id)
 	
 	}
 
@@ -35,6 +39,8 @@ class ProfileAPIContainer extends React.Component {
 				changeArea = {this.props.changeArea}
 				wallpaper = {this.props.profileInfo.photos.large}
 				isLoading = {this.props.isLoading}
+				status = {this.props.status}
+				updateStatus = {this.props.updateStatus}
 			></Profile>
 		);
 	}
@@ -46,12 +52,19 @@ function mapStateToProps(state) {
 		postsData: state.profile.postsData,
 		profileInfo: state.profile.profileInfo,
 		isLoading: state.profile.isLoading,
-		defaultId: state.auth.id
+		defaultId: state.auth.id,
+		status: state.profile.status
 	}
 }
 
 export default compose(
 	withRouter,
 	withAuthComponent,
-	connect(mapStateToProps, {addPost: addPostDelegate, changeArea: changeAreaDelegate, setProfile: setProfile})
+	connect(mapStateToProps, {
+		addPost: addPostDelegate, 
+		changeArea: changeAreaDelegate, 
+		setProfile: setProfile, 
+		getStatus: getStatus, 
+		updateStatus: updateStatus
+	})
 )(ProfileAPIContainer);

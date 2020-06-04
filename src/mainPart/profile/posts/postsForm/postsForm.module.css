@@ -1,0 +1,15 @@
+.post_enter {
+	width: 100%;
+	resize: none;
+	background-color: var(--light-grey);
+	border-radius: 6px;
+	min-height: 150px;
+	padding: 10px;
+	font-size: 20px;
+	line-height: 23px;
+	overflow: hidden;
+	outline: none;
+}
+.post_enter:focus {
+	border: 3px solid var(--middle-grey);
+}

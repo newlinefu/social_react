@@ -1,28 +1,18 @@
 import React from 'react';
 import styles from './posts.module.css';
 import PostsItems from './postsItems/PostsItems';
+import PostsForm from './postsForm/PostsForm';
 
 export default function Posts(props) {
-	const link = React.createRef();
 
-	function addPost() {
-		props.addPost(link.current.value);
+	function onSubmit(formData) {
+		props.addPost(formData.postsTextArea)
 	}
-	
-	function changeArea(event) {
-		props.changeArea(event.target.value);
-	}
+
 	return (
 		<div className={styles.posts}>
 			<div className={styles.text_area_wrapper}>
-				<textarea 
-					placeholder="Write new post" 
-					className = {styles.post_enter} 
-					ref = {link} 
-					onChange = {changeArea}
-					value = {props.postAreaData}>
-				</textarea>
-				<button onClick = {addPost} className = 'standart_btn'>ADD POST</button>
+				<PostsForm onSubmit = {onSubmit}></PostsForm>
 			</div>
 			<PostsItems postsData = {props.postsData}></PostsItems>
 		</div>

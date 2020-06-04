@@ -2,18 +2,14 @@ import React from 'react';
 import singleDialogStyle from './singleDialogsPart.module.css';
 import {Route} from 'react-router-dom';
 import SingleDialog from './singleDialog/SingleDialog';
+import SendMessageForm from './sendMessageForm/SendMessageForm';
 
 export default function SingleDialogsPart(props) {
-	const textAreaLink = React.createRef();
 
-	function addMessage(id) {
-		const valueOfElement = textAreaLink.current.value;
-		props.addMessage(id, valueOfElement);
-	}
-
-	function changeMessageData(id) {
-		const valueOfElement = textAreaLink.current.value;
-		props.changeMessageData(id, valueOfElement);
+	function sendMessage(id) {
+		return (formData) => {
+			props.addMessage(id, formData.sendMessageArea);
+		}
 	}
 
 	return(
@@ -27,16 +23,7 @@ export default function SingleDialogsPart(props) {
 									return (
 										<div>
 											<SingleDialog person = {value.messages}></SingleDialog>
-											<textarea 
-												className={singleDialogStyle.write_message} 
-												ref = {textAreaLink} 
-												value = {value.textAreaData}
-												onChange = {() => changeMessageData(value.id)}
-											></textarea>
-											<button 
-												className = 'standart_btn'
-												onClick = {() => addMessage(value.id)}
-											>SEND MESSAGE</button>
+											<SendMessageForm onSubmit = {sendMessage(value.id)}></SendMessageForm>
 										</div>
 									)}
 							} 
