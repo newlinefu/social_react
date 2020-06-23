@@ -3,7 +3,7 @@ import styles from './posts.module.css';
 import PostsItems from './postsItems/PostsItems';
 import PostsForm from './postsForm/PostsForm';
 
-export default function Posts(props) {
+export default React.memo(function Posts(props) {
 
 	function onSubmit(formData) {
 		props.addPost(formData.postsTextArea)
@@ -17,4 +17,4 @@ export default function Posts(props) {
 			<PostsItems postsData = {props.postsData}></PostsItems>
 		</div>
 	);
-}
+})

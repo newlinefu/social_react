@@ -95,8 +95,6 @@ export default function dialogsReducer(state = defaultState, action) {
 					newState.dialogsData.push({...dialog});
 			}
 			return newState;
-
-
 		default:
 			return state;
 	}

@@ -15,5 +15,5 @@ function Dialogs(props) {
 	);
 }
 
-export default withAuthComponent(Dialogs);
+export default withAuthComponent(React.memo(Dialogs));
 

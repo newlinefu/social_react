@@ -1,7 +1,7 @@
 .post_enter {
 	width: 100%;
 	resize: none;
-	background-color: var(--light-grey);
+	background-color: rgb(200,200,200);
 	border-radius: 6px;
 	min-height: 150px;
 	padding: 10px;
@@ -11,5 +11,5 @@
 	outline: none;
 }
 .post_enter:focus {
-	border: 3px solid var(--middle-grey);
+	border: 3px solid var(--dark-grey);
 }

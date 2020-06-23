@@ -1,4 +1,5 @@
 import React from 'react';
+import {useEffect} from 'react';
 import {connect} from 'react-redux';
 import Users from './Users';
 import {
@@ -10,10 +11,10 @@ import withRouter from '../../hocs/withAuthComponent';
 import {compose} from 'redux';
 
 
-class UsersAPIComponent extends React.Component {
+function UsersAPIComponent(props) {
 
-	insertPagesLinks = () => {
-		const countAllPages = Math.ceil(this.props.totalCount / this.props.pageCount);
+	function insertPagesLinks() {
+		const countAllPages = Math.ceil(props.totalCount / props.pageCount);
 		let pages = [];
 		for(let i = 1; i <= countAllPages; i++) {
 			pages.push(i);
@@ -21,26 +22,24 @@ class UsersAPIComponent extends React.Component {
 		return pages;
 	}
 
-	componentDidMount = () => {
-		this.props.getAllUsers(this.props.pageCount, this.props.activePage);
+	useEffect(()=> {
+		props.getAllUsers(props.pageCount, props.activePage);
+	}, [props.pageCount, props.activePage])
+
+	function onActiveChanged(num) {
+		props.getAllUsers(props.pageCount, num);
 	}
 
-	onActiveChanged = (num) => {
-		this.props.getAllUsers(this.props.pageCount, num);
-	}
-
-	render() {
-		return (<Users
-			follow = {this.props.follow}
-			unfollow = {this.props.unfollow}
-			listOfUsers = {this.props.listOfUsers}
-			pages = {this.insertPagesLinks()}
-			onActiveChanged = {this.onActiveChanged}
-			activePage = {this.props.activePage}
-			isLoading = {this.props.isLoading}
-			isFollowing = {this.props.isFollowing}
-		></Users>)
-	}
+	return (<Users
+		follow = {props.follow}
+		unfollow = {props.unfollow}
+		listOfUsers = {props.listOfUsers}
+		pages = {insertPagesLinks()}
+		onActiveChanged = {onActiveChanged}
+		activePage = {props.activePage}
+		isLoading = {props.isLoading}
+		isFollowing = {props.isFollowing}
+	></Users>)
 }
 
 

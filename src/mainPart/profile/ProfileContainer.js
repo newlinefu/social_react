@@ -1,4 +1,5 @@
 import React from 'react';
+import {useEffect} from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
 import {
@@ -14,36 +15,36 @@ import styles from './profile.module.css';
 import withAuthComponent from '../../hocs/withAuthComponent';
 import {compose} from 'redux';
 
-class ProfileAPIContainer extends React.Component {
-
-	componentDidMount() {
-		let id = this.props.match.params.userId ? this.props.match.params.userId : this.props.defaultId;
-		if(id !== this.props.defaultId || id !== null)
-			this.props.setProfile(id);
-
-		this.props.getStatus(id)
+function ProfileAPIContainer(props) {
 	
-	}
+	useEffect( () => {
 
-	render() {
-		if(!this.props.profileInfo) 
-			return <div className = {styles.loader_wrapper}>
-			<Preloader></Preloader>
-			</div>
-		return (
-			<Profile
-				postAreaData = {this.props.postAreaData}
-				postsData = {this.props.postsData}
-				profileInfo = {this.props.profileInfo}
-				addPost = {this.props.addPost}
-				changeArea = {this.props.changeArea}
-				wallpaper = {this.props.profileInfo.photos.large}
-				isLoading = {this.props.isLoading}
-				status = {this.props.status}
-				updateStatus = {this.props.updateStatus}
-			></Profile>
-		);
-	}
+		let id = props.match.params.userId ? props.match.params.userId : props.defaultId;
+		if(id !== props.defaultId || id !== null)
+			props.setProfile(id);
+
+		props.getStatus(id);
+
+	}, [props.match.params.userId])
+
+
+	if(!props.profileInfo) 
+		return <div className = {styles.loader_wrapper}>
+		<Preloader></Preloader>
+		</div>
+	return (
+		<Profile
+			postAreaData = {props.postAreaData}
+			postsData = {props.postsData}
+			profileInfo = {props.profileInfo}
+			addPost = {props.addPost}
+			changeArea = {props.changeArea}
+			wallpaper = {props.profileInfo.photos.large}
+			isLoading = {props.isLoading}
+			status = {props.status}
+			updateStatus = {props.updateStatus}
+		></Profile>
+	);
 }
 
 function mapStateToProps(state) {

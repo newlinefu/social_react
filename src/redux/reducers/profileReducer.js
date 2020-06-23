@@ -93,32 +93,26 @@ function setStatusDelegate(status) {
 }
 
 function setProfile(id) {
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(toggleLoadingDelegate(true));
-		requests
-			.getProfile(id)
-			.then( response => {
-				dispatch(addProfileInfoDelegate(response));
-				dispatch(toggleLoadingDelegate(false));
-			});	
+		const response = await requests.getProfile(id)
+		dispatch(addProfileInfoDelegate(response));
+		dispatch(toggleLoadingDelegate(false));
 	}
 }
 
 function updateStatus(status) {
-	return (dispatch) => {
-		requests
-			.updateStatus(status)
-			.then(response => !response.resultCode ? dispatch(setStatusDelegate(status)) : null)
+	return async (dispatch) => {
+		const response = await requests.updateStatus(status);
+		if(!response.resultCode)
+			dispatch(setStatusDelegate(status))
 	}
 }
 
 function getStatus(id) {
-	return (dispatch) => {
-		requests
-			.getStatus(id)
-			.then( response => 	{
-				dispatch(setStatusDelegate(response.data)) 
-			})
+	return async (dispatch) => {
+		const response = await requests.getStatus(id)
+		dispatch(setStatusDelegate(response.data)) 
 	}
 }
 

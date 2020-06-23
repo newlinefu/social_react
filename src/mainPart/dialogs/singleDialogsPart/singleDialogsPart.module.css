@@ -6,7 +6,7 @@
 
  .message {
 	font-size: 25px;
-	background-color: var(--middle-grey);
+	background-color: var(--light-red);
 	padding: 10px;
 	border-radius: 6px;
 	max-width: 40%;

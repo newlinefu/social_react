@@ -124,45 +124,36 @@ function toggleFollowingDelegate(isFollow, id) {
 
 function getAllUsers(pageCount, activePage) {
 
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(setActivePageDelegate(activePage));
 		dispatch(toggleLoadingDelegate(true));
 		dispatch(setUsersDelegate([]));
-		requests
-			.getUsers(pageCount, activePage)
-			.then(response => {
-				dispatch(setTotalCountDelegate(response.totalCount));
-				dispatch(setUsersDelegate(response.items));
-				dispatch(toggleLoadingDelegate(false));
-			});
+		const response = await requests.getUsers(pageCount, activePage);
+		dispatch(setTotalCountDelegate(response.totalCount));
+		dispatch(setUsersDelegate(response.items));
+		dispatch(toggleLoadingDelegate(false));
 	}
 }
 
 function followTo(id) {
 
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(toggleFollowingDelegate(true, id));
-		requests
-			.getUserForFollow(id)
-			.then(response => {
-				if(!response) 
-					dispatch(followDelegate(id));
-				dispatch(toggleFollowingDelegate(false, id));
-			})
+		const response = await requests.getUserForFollow(id);
+		if(!response) 
+			dispatch(followDelegate(id));
+		dispatch(toggleFollowingDelegate(false, id));
 	}
 }
 
 function unfollowTo(id) {
 
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(toggleFollowingDelegate(true, id));
-		requests
-			.getUserForUnfollow(id)
-			.then(response => {
-				if(!response) 
-					dispatch(unfollowDelegate(id));
-				dispatch(toggleFollowingDelegate(false, id));
-			})
+		const response = await requests.getUserForUnfollow(id)
+		if(!response) 
+			dispatch(unfollowDelegate(id));
+		dispatch(toggleFollowingDelegate(false, id));
 	}
 }
 

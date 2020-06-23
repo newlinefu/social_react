@@ -59,9 +59,9 @@ function toggleAuthorizedDelegate(value) {
 }
 
 function setAuth() {
-	return (dispatch) => {
+	return async (dispatch) => {
 		dispatch(toggleLoadingDelegate(true));
-		requests
+		return requests
 			.getAuth()
 			.then(response => {
 				dispatch(setAuthDelegate(response.data));
@@ -73,30 +73,24 @@ function setAuth() {
 }
 
 function login(email, password, rememberMe) {
-	return (dispatch) => {
-		requests
-			.login(email, password, rememberMe)
-			.then(response => {
-				if(!response.data.resultCode)
-					setAuth()(dispatch);
-				else{
-					const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
-					dispatch(stopSubmit('login', {_error: error}))
-				}
-			})
+	return async (dispatch) => {
+		const response = requests.login(email, password, rememberMe);
+		if(!response.data.resultCode)
+			setAuth()(dispatch);
+		else {
+			const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+			dispatch(stopSubmit('login', {_error: error}))
+		}
 	}
 }
 
 function logout() {
-	return (dispatch) => {
-		requests
-			.logout()
-			.then(response => {
-				if(!response.data.resultCode){
-					dispatch(setAuthDelegate({login: null, email: null, id: null}));
-					dispatch(toggleAuthorizedDelegate(false));
-				}
-			})
+	return async (dispatch) => {
+		const response = await requests.logout();
+		if(!response.data.resultCode){
+			dispatch(setAuthDelegate({login: null, email: null, id: null}));
+			dispatch(toggleAuthorizedDelegate(false));
+		}
 	}
 }
 
