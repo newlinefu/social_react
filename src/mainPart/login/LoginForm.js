@@ -30,6 +30,14 @@ function LoginForm(props) {
 				<p>Remember me</p>
 			</div>
 			{props.error ? <div className = {styles.common_error}>{props.error}</div> : undefined}
+			{props.captcha && <img src={props.captcha} alt=""/>}
+			{props.captcha && (
+				<Field 
+					component = 'input' 
+					name = 'captcha' 
+					className = {styles.login_input}
+					placeholder = 'Enter captcha'></Field>
+			)}
 			<button type = 'submit' className = 'standart_btn'>LOGIN</button>
 		</form>
 	)

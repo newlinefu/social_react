@@ -7,7 +7,9 @@ import {
 	changeAreaDelegate, 
 	setProfile,
 	getStatus,
-	updateStatus} from '../../redux/reducers/profileReducer';
+	updateStatus,
+	setPhotos,
+	sendFormDataValues} from '../../redux/reducers/profileReducer';
 import {requests} from '../../API/api';
 import Preloader from '../preloader/Preloader';
 import {withRouter} from 'react-router-dom';
@@ -39,10 +41,13 @@ function ProfileAPIContainer(props) {
 			profileInfo = {props.profileInfo}
 			addPost = {props.addPost}
 			changeArea = {props.changeArea}
-			wallpaper = {props.profileInfo.photos.large}
 			isLoading = {props.isLoading}
 			status = {props.status}
 			updateStatus = {props.updateStatus}
+			setPhotos = {props.setPhotos}
+			userId = {props.match.params.userId}
+			infoDataForm = {props.infoDataForm}
+			sendFormDataValues = {props.sendFormDataValues}
 		></Profile>
 	);
 }
@@ -54,7 +59,8 @@ function mapStateToProps(state) {
 		profileInfo: state.profile.profileInfo,
 		isLoading: state.profile.isLoading,
 		defaultId: state.auth.id,
-		status: state.profile.status
+		status: state.profile.status,
+		infoDataForm: state.form.infoDataForm
 	}
 }
 
@@ -66,6 +72,8 @@ export default compose(
 		changeArea: changeAreaDelegate, 
 		setProfile: setProfile, 
 		getStatus: getStatus, 
-		updateStatus: updateStatus
+		updateStatus: updateStatus,
+		setPhotos: setPhotos,
+		sendFormDataValues: sendFormDataValues
 	})
 )(ProfileAPIContainer);

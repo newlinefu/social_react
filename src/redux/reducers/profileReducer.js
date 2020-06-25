@@ -1,11 +1,12 @@
 import {requests} from '../../API/api';
+import {stopSubmit} from 'redux-form';
 
 const ADD_POST = 'ADD-POST';
 const CHANGE_POST_AREA = 'CHANGE-POST-AREA';
 const ADD_PROFILE_INFO = 'ADD-PROFILE-INFO';
 const TOGGLE_LOADING = 'TOGGLE-LOADING';
 const SET_STATUS = 'SET-STATUS';
-//const UPDATE_STATUS = 'UPDATE-STATUS';
+const SET_PHOTO = 'SET-PHOTO';
 
 const defaultState = {
 	profileInfo: null,
@@ -14,8 +15,6 @@ const defaultState = {
 		{id: 2, content: 'Hey. Its my second post', likes: 11},
 		{id: 3, content: 'Hey. Its my third post', likes: 4},
 	],
-	
-	postAreaData: '',
 	isLoading: false,
 	status: ''
 };
@@ -51,6 +50,11 @@ export default function profileReducer(state = defaultState, action) {
 			return {
 				...state,
 				status: action.status
+			}
+		case('SET-PHOTO'):
+			return {
+				...state,
+				profileInfo: {...state.profileInfo, photos: {...action.photos.photos}}
 			}
 		default:
 			return state;
@@ -92,6 +96,13 @@ function setStatusDelegate(status) {
 	}
 }
 
+function setPhotoDelegate(photos) {
+	return {
+		type: SET_PHOTO,
+		photos: photos
+	}
+}
+
 function setProfile(id) {
 	return async (dispatch) => {
 		dispatch(toggleLoadingDelegate(true));
@@ -116,10 +127,38 @@ function getStatus(id) {
 	}
 }
 
+function setPhotos(photoFile) {
+	return async (dispatch) => {
+		const response = await requests.setPhoto(photoFile)
+		if(!response.resultCode)
+			dispatch(setPhotoDelegate(response.data.data))
+	}
+}
+
+function sendFormDataValues(profile) {
+	return async (dispatch, getState) => {
+		const userId = getState().auth.id
+		const name = getState().auth.login
+		const response = await requests.sendFormValues(name, profile)
+		if(!response.data.resultCode){
+			debugger
+			dispatch(setProfile(userId))
+		}
+		else {
+			debugger
+			const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+			dispatch(stopSubmit('infoDataForm', {_error: error}))
+			return Promise.reject(error)
+		}
+	}
+}
+
 export {
 	addPostDelegate, 
 	changeAreaDelegate,
 	setProfile,
 	getStatus,
-	updateStatus
+	updateStatus,
+	setPhotos,
+	sendFormDataValues
 };

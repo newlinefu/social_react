@@ -9,3 +9,7 @@
 	border: none;
 	width: 80%;
 }
+
+.higthlight {
+	color: var(--dark-red);
+}

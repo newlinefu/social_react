@@ -27,7 +27,7 @@ export default function ProfileStatus(props) {
 	if(!change)
 		return <div 
 					onDoubleClick = {setChanging} 
-					className = {styles.non_change}>
+					className = {`${styles.non_change} ${styles.higthlight}`}>
 				{status || '------'}
 				</div> 
 	else
@@ -38,7 +38,7 @@ export default function ProfileStatus(props) {
 					onBlur = {setNonChanging}
 					onChange = {changeStatusInput} 
 					autoFocus = {true} 
-					className = {styles.change}
+					className = {`${styles.change} ${styles.higthlight}`}
 					value = {status}
 					/>
 			</div>

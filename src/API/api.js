@@ -37,16 +37,39 @@ export const requests = {
 				status: status
 			})
 	},
-	login: function(email, password, rememberMe = false) {
+	login: function(email, password, rememberMe = false, captcha) {
 		return template
 			.post('auth/login', {
 				email: email,
 				password: password,
-				rememberMe: rememberMe
+				rememberMe: rememberMe,
+				captcha: captcha
 			})
 	},
 	logout: function() {
 		return template
 			.delete('auth/login')
+	},
+
+	setPhoto: function(photoFile) {
+		const formData = new FormData()
+		formData.append("image", photoFile)
+
+		return template
+			.put('profile/photo', formData, {
+			    headers: {
+			      'Content-Type': 'multipart/form-data'
+			    }
+			})
+	},
+
+	sendFormValues: function(fullName, profile) {
+		return template
+			.put('profile', {fullName: fullName, ...profile})
+	},
+
+	getCaptcha: function() {
+		return template
+				.get('security/get-captcha-url')
 	}
 }

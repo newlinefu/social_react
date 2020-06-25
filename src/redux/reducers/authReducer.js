@@ -1,16 +1,18 @@
-import {requests} from '../../API/api';
-import {stopSubmit} from 'redux-form';
+import {requests} from '../../API/api'
+import {stopSubmit} from 'redux-form'
 
-const SET_AUTH = 'SET-AUTH';
-const TOGGLE_LOADING = 'TOGGLE-LOADING';
-const TOGGLE_AUTHORIZED = 'TOGGLE-AUTHORIZED';
+const SET_AUTH = 'SET-AUTH'
+const TOGGLE_LOADING = 'TOGGLE-LOADING'
+const TOGGLE_AUTHORIZED = 'TOGGLE-AUTHORIZED'
+const GET_CAPTCHA_URL = 'GET-CAPTCHA-URL'
 
 const defaultState = {
 	login: null,
 	email: null,
 	id: null,
 	isLoading: false,
-	isAuthorized: false
+	isAuthorized: false,
+	captcha: null
 }
 
 export default function authReducer(state = defaultState, action) {
@@ -31,6 +33,11 @@ export default function authReducer(state = defaultState, action) {
 			return {
 				...state,
 				isAuthorized: action.value
+			}
+		case('GET-CAPTCHA-URL'):
+			return {
+				...state,
+				captcha: action.captcha
 			}
 		default:
 			return state;
@@ -58,27 +65,37 @@ function toggleAuthorizedDelegate(value) {
 	}
 }
 
+function getCapthcaUrlDelegate(url) {
+	return {
+		type: GET_CAPTCHA_URL,
+		captcha: url
+	}
+}
+
 function setAuth() {
 	return async (dispatch) => {
-		dispatch(toggleLoadingDelegate(true));
+		dispatch(toggleLoadingDelegate(true))
 		return requests
 			.getAuth()
 			.then(response => {
-				dispatch(setAuthDelegate(response.data));
-				dispatch(toggleLoadingDelegate(false));
+				dispatch(setAuthDelegate(response.data))
+				dispatch(toggleLoadingDelegate(false))
 				if(!response.resultCode)
-					dispatch(toggleAuthorizedDelegate(true));
+					dispatch(toggleAuthorizedDelegate(true))
 			});
 	}
 }
 
-function login(email, password, rememberMe) {
+function login(email, password, rememberMe, captcha) {
 	return async (dispatch) => {
-		const response = requests.login(email, password, rememberMe);
+		const response = await requests.login(email, password, rememberMe, captcha);
 		if(!response.data.resultCode)
-			setAuth()(dispatch);
+			dispatch(setAuth())
 		else {
-			const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+			if(response.data.resultCode === 10) {
+				dispatch(getCaptchaUrl())
+			}
+			const error = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
 			dispatch(stopSubmit('login', {_error: error}))
 		}
 	}
@@ -86,12 +103,18 @@ function login(email, password, rememberMe) {
 
 function logout() {
 	return async (dispatch) => {
-		const response = await requests.logout();
+		const response = await requests.logout()
 		if(!response.data.resultCode){
-			dispatch(setAuthDelegate({login: null, email: null, id: null}));
-			dispatch(toggleAuthorizedDelegate(false));
+			dispatch(setAuthDelegate({login: null, email: null, id: null}))
+			dispatch(toggleAuthorizedDelegate(false))
 		}
 	}
 }
 
+function getCaptchaUrl() {
+	return async (dispatch) => {
+		const response = await requests.getCaptcha()
+		dispatch(getCapthcaUrlDelegate(response.data.url))
+	}
+}
 export {setAuth, login, logout}
